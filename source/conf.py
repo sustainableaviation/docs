@@ -8,7 +8,7 @@ import os
 ### Project Information ###########################################################################
 ###################################################################################################
 
-project = 'Sustainable Aviation Dashboard'
+project = 'Sustainable Aviation Research Project'
 copyright = datetime.date.today().strftime("%Y") + ' Paul Scherrer Institute'
 version: str = 'latest' # required by the version switcher
 
@@ -16,7 +16,7 @@ version: str = 'latest' # required by the version switcher
 ### Project Configuration #########################################################################
 ###################################################################################################
 
-# needs_sphinx = '7.2.6' # update as soon as myst-nb has been updated to allow for sphinx 7
+needs_sphinx = '7.2.6'
 
 extensions = [
     # core extensions
@@ -39,7 +39,7 @@ extensions = [
     # copy button on code blocks
     "sphinx_copybutton",
     # wasm
-    #"jupyterlite_sphinx",
+    # "jupyterlite_sphinx",
     # dashboard
     # 'nbsite.pyodide',
 ]
@@ -76,7 +76,7 @@ html_sidebars = {
 footcent = str('test')
 
 html_theme_options = {
-    "announcement": "<p>⚠️ This Dashboard is in Public Beta ⚠️</p>",
+    "announcement": "<p>⚠️ This website is in Public Beta ⚠️</p>",
     # page elements
     "navbar_start": ["navbar-logo"],
     "navbar_end": ["navbar-icon-links.html"],
@@ -90,7 +90,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/sustainableaviation/sustainable_aviation_dashboard",
+            "url": "https://github.com/sustainableaviation/",
             "icon": "fab fa-brands fa-github",
         },
     ],
@@ -100,14 +100,14 @@ html_theme_options = {
     "use_edit_page_button": True,
     "navigation_with_keys": True,
     "logo": {
-        "text": "Sustainable Aviation Dashboard",
+        "text": "Sustainable Aviation",
     },
 }
 
 # required by html_theme_options: "use_edit_page_button"
 html_context = {
     "github_user": "sustainableaviation",
-    "github_repo": "sustainable_aviation_dashboard",
+    "github_repo": "docs",
     "github_version": "main",
     "doc_path": "docs",
 }

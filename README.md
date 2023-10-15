@@ -3,5 +3,5 @@
 ## Build the Documentation
 
 ```bash
-sphinx-autobuild docs _build/html -a -j auto --open-browser
+sphinx-autobuild source _build/html -a -j auto --open-browser
 ```

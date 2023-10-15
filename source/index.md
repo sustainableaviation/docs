@@ -8,6 +8,6 @@ hidden:
 maxdepth: 1
 ---
 content/dashboard
-content/test
-Dashboard <https://live.brightway.dev/>
+content/library
+Dashboard <https://sustainableaviation.github.io/>
 ```
