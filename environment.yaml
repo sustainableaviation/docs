@@ -1,0 +1,19 @@
+name: dashboard
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  # core funcitonality
+  - python=3.11
+  # data science
+  - jupyterlab
+  - scipy
+  - numpy
+  - pandas
+  # I/O
+  - openpyxl=3.1.2 # https://anaconda.org/conda-forge/openpyxl/files
+  # dashboard
+  - panel=1.2.3 # https://anaconda.org/conda-forge/panel/files
+  # plotting
+  - bokeh=3.2.2 # https://anaconda.org/conda-forge/bokeh/files
+  - jupyter_bokeh=3.0.7 # https://anaconda.org/conda-forge/jupyter_bokeh/files
