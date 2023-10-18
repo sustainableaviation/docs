@@ -11,5 +11,5 @@ hidden:
 maxdepth: 1
 ---
 content/library
-Dashboard <https://sustainableaviation.github.io/>
+Dashboard <https://sustainableaviation.github.io/dashboard/>
 ```
