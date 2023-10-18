@@ -2,13 +2,12 @@
 
 from glob import glob
 import datetime
-import os
  
 ###################################################################################################
 ### Project Information ###########################################################################
 ###################################################################################################
 
-project = 'Sustainable Aviation Research Project'
+project = 'Sustainable Aviation Research at PSI'
 copyright = datetime.date.today().strftime("%Y") + ' Paul Scherrer Institute'
 version: str = 'latest' # required by the version switcher
 
@@ -73,10 +72,8 @@ html_sidebars = {
     ],
 }
 
-footcent = str('test')
-
 html_theme_options = {
-    "announcement": "<p>⚠️ This website is in Public Beta ⚠️</p>",
+    "announcement": "<p>⚠️ This website is in public beta ⚠️</p>",
     # page elements
     "navbar_start": ["navbar-logo"],
     "navbar_end": ["navbar-icon-links.html"],
@@ -111,19 +108,6 @@ html_context = {
     "github_version": "main",
     "doc_path": "docs",
 }
-
-####################################################################################################
-### Extension Configuration ########################################################################
-####################################################################################################
-
-# pyviz.nbsite Configuration ############################################
-# https://panel.holoviz.org/how_to/wasm/sphinx.html#configuration
-
-# nbsite_pyodide_conf = {
-#     "PYODIDE_URL": "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/", # https://pyodide.org/en/stable/usage/downloading-and-deploying.html#cdn
-#     "autodetect_deps": True,
-#     "enable_pwa": True,
-# }
 
 # linkcheck Configuration ###############################################
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-the-linkcheck-builder

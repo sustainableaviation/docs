@@ -1,13 +1,15 @@
-# Sustainable Aviation Dashboard
+# Sustainable Aviation Research at PSI
 
-...some more text soon!
+...more information to follow soon!
+
+![](_media/Electric_Airbus_A320.jpg)
+Image source: [Michael Weinold](https://commons.wikimedia.org/wiki/File:Electric_Airbus_A320.jpg) under [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 
 ```{toctree}
 ---
 hidden:
 maxdepth: 1
 ---
-content/dashboard
 content/library
 Dashboard <https://sustainableaviation.github.io/>
 ```
