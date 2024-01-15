@@ -18,6 +18,10 @@
 
 - 🌐 [ICCAIA (International Organization for Aerospace Industry Associations)](https://iccaia.org/2023/)
 
+#### Government Associations
+
+- 🌐 [ICAO Uniting Aviation](https://unitingaviation.com)
+
 ### Models
 
 - 🌐 [ICAO Models and Databases Overview](https://www.icao.int/environmental-protection/pages/modelling-and-databases.aspx)
