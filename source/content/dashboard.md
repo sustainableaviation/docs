@@ -27,7 +27,7 @@ Comparisons in the Panel documentation: [`panel` vs `dash`](https://panel.holovi
 | -------------- | ----------- | ------- |
 | `panel` | [Full Support (based on `pyodide`)](https://panel.holoviz.org/how_to/wasm/index.html) | |
 | `voila` | [Full Support through `voici` (based on `xeus-python-kernel`)](https://voici.readthedocs.io/en/latest/) | Currently buggy |
-| `dash` | [Alpha Stage Prototypes (3rd Party)](https://medium.com/plotly/dash-club-6-webassembly-summer-app-challenge-show-tell-60a3b1cd9f41) | see also [`webdash`](https://github.com/ibdafna/webdash) |
+| `dash` (by Plotly) | [Alpha Stage Prototypes (3rd Party)](https://medium.com/plotly/dash-club-6-webassembly-summer-app-challenge-show-tell-60a3b1cd9f41) | see also [`webdash`](https://github.com/ibdafna/webdash) |
 | `streamlit` | [Alpha Stage Prototypes (3rd Party)](https://discuss.streamlit.io/t/new-library-stlite-a-port-of-streamlit-to-wasm-powered-by-pyodide/25556) | see also [`stlite`](https://github.com/whitphx/stlite) |
 
 See also:
