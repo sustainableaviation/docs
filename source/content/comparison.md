@@ -2,18 +2,6 @@
 
 ## Air Transport Emissions Models
 
-| Model | Institution | Year | Functional Unit | LCA? | Source | License |
-|-------|-------------|------|-----------------|------|--------|---------|
-| [AIM](https://www.ucl.ac.uk/energy-models/models/aim) | UCL (used by MIT) | from 2006 | ??? | ??? | [Project Site](https://www.atslab.org/data-tools/) | [MIT](https://mit-license.org) |
-| [PSI (Cox et al.)](https://doi.org/10.1016/j.trd.2017.10.017) | PSI TAG | ~2018 | pax-km | yes | [Supplement](https://doi.org/10.1016/j.trd.2017.10.017) |  [CC BY NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/deed.en) |
-| [AeroMAPS](https://aeromaps.isae-supaero.fr) | ISAE-SUPAERO [ISA](https://isa-toulouse.com/) | from 2023 | ??? | ??? | [GitHub](https://github.com/AeroMAPS/AeroMAPS) | [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) |
-| [Hamelin et al. "Framework"](https://doi.org/10.1016/j.scitotenv.2023.163881) | INSA Toulouse | 2023 | ??? | ??? | [Supplement](https://doi.org/10.1016/j.scitotenv.2023.163881) | All Rights Reserved |
-| [openLCA-AD]() | TUM | 2023 | pax-km | Yes | ??? | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en) |
-
-Reviews
-
- - https://doi.org/10.1016/j.jairtraman.2023.102418
-
 ```mermaid
 flowchart LR
     A[Future Demand] -- pax-miles --> X["LCA Score (CO₂/pax-miles)"]
@@ -22,6 +10,21 @@ flowchart LR
     D[IAM Scenarios] -- CO₂/kWh, etc. --> C
     E[Economic/IAM Scenarios] -- demand --> A
 ```
+
+![](_media/fuel_calculations.png)
+
+| Model | Institution | Year | Functional Unit | LCA? | Source | License |
+|-------|-------------|------|-----------------|------|--------|---------|
+| [AIM](https://www.ucl.ac.uk/energy-models/models/aim) | UCL (used by MIT) | from 2006 | multiple | scores only? | [Project Site](https://www.atslab.org/data-tools/) | [MIT](https://mit-license.org) |
+| [PSI (Cox et al.)](https://doi.org/10.1016/j.trd.2017.10.017) | PSI TAG | ~2018 | pax-km | yes | [Supplement](https://doi.org/10.1016/j.trd.2017.10.017) |  [CC BY NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/deed.en) |
+| [AeroMAPS](https://aeromaps.isae-supaero.fr) | ISAE-SUPAERO [ISA](https://isa-toulouse.com/) | from 2023 | ??? | yes | [GitHub](https://github.com/AeroMAPS/AeroMAPS) | [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) |
+| [openLCA-AD]() | TUM | 2023 | pax-km | yes | ??? | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en) |
+
+### Recent Literature Reviews
+
+ - [Kaiser et al. (2023)](https://doi.org/10.1016/j.jairtraman.2023.102418)
+ - [Table 1 in Sacchi et al. (2023)](https://doi.org/10.1038/s41467-023-39749-y)
+ - [Table 2 in Planès et al. (2023)](https://doi.org/10.59490/joas.2023.7147)
 
 ## Datasets (Foreground Life-Cycle Inventory)
 
@@ -41,15 +44,15 @@ flowchart LR
 
 The GAM model computes trip fuel (cruise only) from the Breguet range equation (cf. [Burzlaff et al. Eqn. (2.9)](https://www.fzt.haw-hamburg.de/pers/Scholz/arbeiten/TextBurzlaff.pdf)):
 
-$
+$$
 R=\frac{V(L/D)}{cg}\text{ln}\big(\frac{m_1}{m_2}\big)
-$
+$$
 
 which in [`generic_airplane_model.py#L566`](https://gitlab.com/m6029/genericairplanemodel/-/blob/main/models/generic_airplane_model.py?ref_type=heads#L566) they rearrange to compute the fuel burn for a given distance:
 
-$
+$$
 m_f = m_1 (1 - e^{(-\frac{cgR}{V(L/D)})})
-$
+$$
 
 Note that these functions are not documented in the code, or anywhere else. Good knowledge of basic aerodynamic equations is required to understand where they derive their functions from.
 
@@ -80,7 +83,32 @@ Unfortunately, some of these regressions strike me as very poorly made. For inst
 
 I have my doubts if this is a good fit - much less a sound assumption of the undeying aerodynamical connection betwen MTOW and L/D. In any case, it is _very_ optimistic. An improvement in L/D of 3 is already very significant. Historically, such an improvement has taken >20 years of development.
 
+### AIM2015
 
+Unlike all other models, AIM2015 models the impact of increasing prices on air travel demand directly (cf. [AIM2015 documentation, Section 3.1.1](https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf)). Variables includes income elasticities, policy-driven price increases (EU ETS carbon pricing), electricity prices and their impact on H₂ production, etc.
 
-AIM documentation: https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf
-https://web.jrc.ec.europa.eu/policy-model-inventory/explore/models/model-aim/
+The model itself does not make use of life-cycle assessment of different fuel pathways. For instance, the `BiofuelDataByPathway.csv` file of the base model only ontains three emissions data columns:
+
+```
+Pathway_LC_gCO2MJ_excH2andElec_2020_Optimistic
+Pathway_LC_gCH4MJ_excH2andElec_2020_Optimistic
+Pathway_LC_gN2OMJ_excH2andElec_2020_Optimistic
+```
+
+In general, the treatment of life-cycle emissions upstream of fuel combustion are treated disparagingly:
+
+> The lifecycle emissions of electricity from solar photo- voltaics and wind are assumed to be zero (see Supplementary Section 1 for estimate on embedded emissions). While currently there are still embedded emissions in the production of photovoltaics modules and wind turbines, these are expected to approach zero with the decarbonization of the economy. \
+> \- [Dray et al. (2023)](https://doi.org/10.1038/s41558-022-01485-4
+), a recent publication that used the AIM2015 model
+
+For climate impacts resulting from fuel combustion during flight, the model offers two options:
+
+>  (...) For approximate calculations of different climate metrics, AIM’s Global Climate Model can be used (e.g. [Krammer et al. 2013](https://doi.org/10.1016/j.trd.2013.03.013)). For the recent paper by [Dray et al. (2022)](https://doi.org/10.1038/s41558-022-01485-4), AIM outputs were instead input to MIT’s APMT model. AIM can also output gridded inventories of fuel use, emissions and distance flown which can be used as input to full climate models. \
+> \- [AIM2015 documentation, Section 3.5](https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf))
+
+## AeroMAPS
+
+# TODO
+
+AIM2015 fuel consumption, based on gegression
+
