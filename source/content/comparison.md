@@ -34,11 +34,12 @@ flowchart LR
 
 ## Aircraft Models
 
-| Dataset | Institution | Year | Scope | Coverage | Source | License |
-|---------|-------------|------|-------|----------|--------|---------|
-| [Hamelin et al. "Framework"](https://doi.org/10.1016/j.scitotenv.2023.163881) | INSA Toulouse | 2023 | Heart AS-19, A320, A350, BWB | weights, range, fuel consumption (efficiency) | [Supplement](https://doi.org/10.1016/j.scitotenv.2023.163881) | All Rights Reserved |
-| [GAM](https://doi.org/10.2514/6.2024-1707) | ISAE | 2023 | tube-and-wing acft. | weights (as fct. of range) | [GitLab](https://gitlab.com/m6029/genericairplanemodel) | [CeCILL-C](http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) |
-| [Hydrogen Aircraft (McTinghe et al.)]() | PSI TAG | 2024 | ??? | ??? | ??? | ??? |
+| Dataset                                                                       | Institution   | Year | Scope                                | Coverage                                      | Source                                                        | License                                                                 |
+|-------------------------------------------------------------------------------|---------------|------|--------------------------------------|-----------------------------------------------|---------------------------------------------------------------|-------------------------------------------------------------------------|
+| [Hamelin et al. "Framework"](https://doi.org/10.1016/j.scitotenv.2023.163881) | INSA Toulouse | 2023 | Heart AS-19, A320, A350, BWB         | weights, range, fuel consumption (efficiency) | [Supplement](https://doi.org/10.1016/j.scitotenv.2023.163881) | All Rights Reserved                                                     |
+| [GAM](https://doi.org/10.2514/6.2024-1707)                                    | ISAE          | 2023 | tube-and-wing acft.                  | weights (as fct. of range)                    | [GitLab](https://gitlab.com/m6029/genericairplanemodel)       | [CeCILL-C](http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html) |
+| [Hydrogen Aircraft (McTighe et al.)]()                                        | PSI TAG       | 2024 | H2 only, Tube-and-wing, blended-wing | Weights, range, but top-down modeling         | ???                                                           | ???                                                                     |
+
 
 ### GAM (Generic Airplane Model)
 
