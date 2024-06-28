@@ -119,6 +119,13 @@ For climate impacts resulting from fuel combustion during flight, the model offe
 
 #### Aircraft Performance Model
 
+Fuel consumption in this model is computed based on the following logic:
+
+1. The global air traffic market [is split by distance segment](https://aeromaps.github.io/AeroMAPS/books/documentation_airtransport.html?highlight=fuel+consumption#categorization-and-calibration-of-the-aviation-market) (eg. "Short-haul - Regional", "Long haul", etc.)
+2. For each segment, a base (~2020) fuel consumption (and CO₂ emission) are assumed [based on a single study by the ICCT](https://theicct.org/publication/co2-emissions-from-commercial-aviation-2013-2018-and-2019/).
+3. Fuel consumption of future aircraft can be added by the user. These aircraft [are then integrated into the fleet](https://aeromaps.github.io/AeroMAPS/books/documentation_airtransport.html?highlight=fuel+consumption#aircraft-fleet-and-operations-energy-efficiency-improvements), thereby reducing the overall fuel consumption of the fleet.
+
+
 #### LCA
 
 The primary user-facing function of the AeroMAPS model is `create_process`, as detailed in [`aeromaps/notebooks/examples_custom_process.ipynb`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/notebooks/examples_custom_process.ipynb):
@@ -176,7 +183,7 @@ Statistical analysis of a literature review (see resources/energy_data)
 
 #### Aircraft Performance Model
 
-Fuel consumption in this model is computed as follows:
+Fuel consumption in this model is computed based on the following logic:
 
 1. For instance, all trips from Europe > America are assigned an average flight distance of $\overline{d}=6'654km$, as per [`Supplementary Data 1.xlsx > European Fleet > G4`](https://doi.org/10.5281/zenodo.8059751)
 2. Fuel consumption of future aircraft is modeled based on a regression of historical data from the [2013 EMEP/EEA Air Pollutant Emission Inventory Guidebook](http://www.eea.europa.eu/ds_resolveuid/b00c7eedbbc9481cbcb33528e00c2c5e) with an assumed future "improvement rate", as per as per [`Supplementary Data 1.xlsx > Aircraft Specs > L84`](https://doi.org/10.5281/zenodo.8059751)
