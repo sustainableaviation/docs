@@ -92,6 +92,24 @@ Unlike all other models, AIM2015 models the impact of increasing prices on air t
 
 #### Aircraft Performance Model
 
+The AIM2015 fuel use and emissions model is specific to different aircraft types by flight phase
+
+Fuel consumption in this model is computed based on the following logic:
+
+1. The demand on individual routes is computed by the XXX module
+2. Fuel consumption of aircraft is modeled based on a regression of (historical) data from calculations made using the PIANO-X software. Efficiency regression coefficients $\eta$ are then used with flight parameters, such as distance $D$ and payload $PL$ to compute fuel consumption:
+
+$$
+fuel = I_{ts} ( \eta_{tsp,0} + \eta_{tsp,1} D + \eta_{tsp,2} D * PL + \eta_{tsp,3} + D^2 + \dots)
+$$
+
+3. Fuel consumption of future aircraft can be computed from the regression coefficients $\eta$ and the flight parameters of the future aircraft, as long as they are modeled with PIANO-X. For novel propulsion systems, the model in practice uses:
+
+> For electric aircraft, parameters are derived using assumptions from [Hepperle et al (2012)](https://www.researchgate.net/publication/234738753) for regional jet-sized aircraft, and [Gnadt (2018)](http://dspace.mit.edu/handle/1721.1/7582) and [Gnadt et al. (2019)](https://doi.org/10.1016/j.paerosci.2018.11.002) for narrowbody aircraft. \
+> \- [AIM2015 documentation, Pages 24-25](https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf)
+
+
+
 #### LCA
 
 The model itself does not make use of life-cycle assessment of different fuel pathways. For instance, the `BiofuelDataByPathway.csv` file of the base model only ontains three emissions data columns:
@@ -186,8 +204,8 @@ Statistical analysis of a literature review (see resources/energy_data)
 Fuel consumption in this model is computed based on the following logic:
 
 1. For instance, all trips from Europe > America are assigned an average flight distance of $\overline{d}=6'654km$, as per [`Supplementary Data 1.xlsx > European Fleet > G4`](https://doi.org/10.5281/zenodo.8059751)
-2. Fuel consumption of future aircraft is modeled based on a regression of historical data from the [2013 EMEP/EEA Air Pollutant Emission Inventory Guidebook](http://www.eea.europa.eu/ds_resolveuid/b00c7eedbbc9481cbcb33528e00c2c5e) with an assumed future "improvement rate", as per as per [`Supplementary Data 1.xlsx > Aircraft Specs > L84`](https://doi.org/10.5281/zenodo.8059751)
-
+2. Fuel consumption of aircraft is modeled based on a regression of historical data from the [2013 EMEP/EEA Air Pollutant Emission Inventory Guidebook](http://www.eea.europa.eu/ds_resolveuid/b00c7eedbbc9481cbcb33528e00c2c5e), as per [`Supplementary Data 1.xlsx > Aircraft Specs > L84`](https://doi.org/10.5281/zenodo.8059751)
+3. Fuel consumption of future aircraft is computed based on an assumed future "improvement rate" derived from literature, as per [`Supplementary Data 1.xlsx > Aircraft Specs > J4`](https://doi.org/10.5281/zenodo.8059751)
 
 # TODO
 
