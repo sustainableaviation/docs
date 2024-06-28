@@ -86,7 +86,13 @@ I have my doubts if this is a good fit - much less a sound assumption of the und
 
 ### AIM2015
 
+#### Air Traffic Model
+
 Unlike all other models, AIM2015 models the impact of increasing prices on air travel demand directly (cf. [AIM2015 documentation, Section 3.1.1](https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf)). Variables includes income elasticities, policy-driven price increases (EU ETS carbon pricing), electricity prices and their impact on H₂ production, etc.
+
+#### Aircraft Performance Model
+
+#### LCA
 
 The model itself does not make use of life-cycle assessment of different fuel pathways. For instance, the `BiofuelDataByPathway.csv` file of the base model only ontains three emissions data columns:
 
@@ -98,7 +104,7 @@ Pathway_LC_gN2OMJ_excH2andElec_2020_Optimistic
 
 In general, the treatment of life-cycle emissions upstream of fuel combustion are treated disparagingly:
 
-> The lifecycle emissions of electricity from solar photo- voltaics and wind are assumed to be zero (see Supplementary Section 1 for estimate on embedded emissions). While currently there are still embedded emissions in the production of photovoltaics modules and wind turbines, these are expected to approach zero with the decarbonization of the economy. \
+> The lifecycle emissions of electricity from solar photovoltaics and wind are assumed to be zero (see Supplementary Section 1 for estimate on embedded emissions). While currently there are still embedded emissions in the production of photovoltaics modules and wind turbines, these are expected to approach zero with the decarbonization of the economy. \
 > \- [Dray et al. (2023)](https://doi.org/10.1038/s41558-022-01485-4
 ), a recent publication that used the AIM2015 model
 
@@ -108,6 +114,61 @@ For climate impacts resulting from fuel combustion during flight, the model offe
 > \- [AIM2015 documentation, Section 3.5](https://www.atslab.org/wp-content/uploads/2023/02/AIM-2015-Documentation-v11.pdf))
 
 ## AeroMAPS
+
+#### Air Traffic Model
+
+#### Aircraft Performance Model
+
+#### LCA
+
+The primary user-facing function of the AeroMAPS model is `create_process`, as detailed in [`aeromaps/notebooks/examples_custom_process.ipynb`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/notebooks/examples_custom_process.ipynb):
+
+The [default `create_process` function](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/__init__.py#L6) loads a default model named `default_models_top_down`:
+
+```python
+def create_process(
+    configuration_file=None,
+    models=default_models_top_down,
+    use_fleet_model=False,
+    add_examples_aircraft_and_subcategory=True,
+) -> AeroMAPSProcess:
+```
+
+[which in turn loads](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/core/models.py#L539)
+
+```python
+default_models_top_down = {
+    (...)
+    "models_energy_without_fuel_effect": models_energy_without_fuel_effect,
+    (...)
+}
+```
+
+[which in turn loads](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/core/models.py#L257)
+
+```python
+models_energy_without_fuel_effect = {
+    (...)
+    "biofuel_emission_factor": BiofuelEmissionFactor("biofuel_emission_factor"),
+    "electricity_emission_factor": ElectricityEmissionFactor
+    (...)
+}
+```
+
+which in turn loads the [`models.air_transport.aircraft_energy.fuel_emissions.BiofuelEmissionFactor`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/models/air_transport/aircraft_energy/fuel_emissions.py#L8) class, which loads/interpolates default CO₂ emission factors for biofuels from the data file [`aeromaps/resources/data/parameters.json`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/resources/data/parameters.json#L310):
+
+```
+"biofuel_hefa_fog_emission_factor_reference_years_values": [20.7],
+```
+
+with associated metadata in [`aeromaps/resources/data/data_information.csv`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/resources/data/data_information.csv#L34):
+
+```
+(...)
+gCO2/MJ;
+Emission factor of biofuel from HEFA pathway (from fats, oils and grease) for the reference years;
+Statistical analysis of a literature review (see resources/energy_data)
+```
 
 # TODO
 
