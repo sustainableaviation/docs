@@ -206,8 +206,3 @@ Fuel consumption in this model is computed based on the following logic:
 1. For instance, all trips from Europe > America are assigned an average flight distance of $\overline{d}=6'654km$, as per [`Supplementary Data 1.xlsx > European Fleet > G4`](https://doi.org/10.5281/zenodo.8059751)
 2. Fuel consumption of aircraft is modeled based on a regression of historical data from the [2013 EMEP/EEA Air Pollutant Emission Inventory Guidebook](http://www.eea.europa.eu/ds_resolveuid/b00c7eedbbc9481cbcb33528e00c2c5e), as per [`Supplementary Data 1.xlsx > Aircraft Specs > L84`](https://doi.org/10.5281/zenodo.8059751)
 3. Fuel consumption of future aircraft is computed based on an assumed future "improvement rate" derived from literature, as per [`Supplementary Data 1.xlsx > Aircraft Specs > J4`](https://doi.org/10.5281/zenodo.8059751)
-
-# TODO
-
-AIM2015 fuel consumption, based on gegression
-
