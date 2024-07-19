@@ -143,6 +143,32 @@ Fuel consumption in this model is computed based on the following logic:
 2. For each segment, a base (~2020) fuel consumption (and CO₂ emission) are assumed [based on a single study by the ICCT](https://theicct.org/publication/co2-emissions-from-commercial-aviation-2013-2018-and-2019/).
 3. Fuel consumption of future aircraft can be added by the user. These aircraft [are then integrated into the fleet](https://aeromaps.github.io/AeroMAPS/books/documentation_airtransport.html?highlight=fuel+consumption#aircraft-fleet-and-operations-energy-efficiency-improvements), thereby reducing the overall fuel consumption of the fleet.
 
+> [!IMPORTANT]  
+> Does the Aeromaps model allow for the comparison of different aircraft with respect to the lower number of seats/cargo-space (=usable volume) expected to be available on Hydrogen aircraft?
+
+The number of seats per aircraft is defined through the `ask_year` parameter of the the [AircraftParameters](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/models/air_transport/aircraft_fleet_and_operations/fleet/fleet_model.py#L33) class, which by default is instantiated with hard-coded values by the [`_build_default_fleet()`](https://github.com/AeroMAPS/AeroMAPS/blob/4bef13a4a10950283afcbf62ac1fcc36aae23805/aeromaps/models/air_transport/aircraft_fleet_and_operations/fleet/fleet_model.py#L1592) function.
+
+Of course, one would assume that a turboFAN aircraft would have noticably higher `ask_year` values than turboFAN aircraft - because they fly on average 300~400km/h _faster_ than a turboPROP aircraft (see the [cruise speed of the A321](https://en.wikipedia.org/wiki/Airbus_A321#Specifications) and [the ATR72](https://en.wikipedia.org/wiki/ATR_72#Specifications). After all, the lower efficient cruise speed of open fan engines has long been a concern for airlines for this very reason: An airline need more slow airplanes to serve the same number of pax as fewer fast airplanes. However, the default values show that this is not the case - also, the Hydrogen aircraft has the same capacity as the conventional airframes:
+
+![](_media/rpk_year_default_aeromaps.png)
+
+The `ask_year` parameter therefore "hides" a few different aircraft performance parameters, including the cruise speed $v_{cruise}$, the passenger exit limit (=max. number of pax) $PEL$ and the airborne ratio:
+
+$$
+ASK_{year}=PEL \times \times v_{cruise} \times \frac{t_{airborne}}{t_{grounded}} \times 24 \times 365
+$$
+
+A quick sanity check with values for the A321:
+
+| Parameter | Value |
+|-----------|-------|
+| $PEL$     | 200   |
+| $v_{cruise}$ | 700 km/h (due to ldg/toff and approach) |
+| airborne ratio | 0.4 (due to short-haul) |
+
+returns $ASK_{year}=4.9\times 10^8$, which is on the order of the default values in the AeroMAPS model.
+
+Is seems, therefore, that the model can not compare different aircraft with respect to the lower number of seats/cargo-space expected to be available on Hydrogen aircraft.
 
 #### LCA
 
